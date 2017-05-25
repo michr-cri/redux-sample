@@ -17,9 +17,9 @@ const config = {
     context: SRC_DIR,
     devtool: 'source-map',
     devServer: {
-        publicPath: './',
+        publicPath: '/',
         // match the output `publicPath`
-        contentBase: path.join(__dirname, "dist/app"),
+        contentBase: DIST_DIR,
         // match the output path
         compress: true,
         inline: true,
@@ -34,15 +34,16 @@ const config = {
         // bundle the client for webpack-dev-server
         // and connect to the provided endpoint
         'webpack/hot/only-dev-server',
+        // this entry does not override devServer:hot:true option. If you are going to use this option don't use devServer:hot option
         // bundle the client for hot reloading
         // only- means to only hot reload for successful updates
         './app/index.js'
         //the entry point of our app
     ],
     output: {
-        path: DIST_DIR + '/app',
+        path: DIST_DIR,
         filename: 'bundle.[hash].js',
-        publicPath: './'
+        publicPath: '/'
         // necessary for HMR to know where to load the hot update chunks
     },
     module: {

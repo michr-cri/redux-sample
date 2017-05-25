@@ -5,13 +5,13 @@ var webpackConfig = require('./webpack.config');
 
 var compiler = webpack(webpackConfig);
 
-const port=3000;
+const WEB_DEV_SERVER_PORT=9000;
 const DIST_DIR = path.resolve(__dirname, 'dist');
 const SRC_DIR = path.resolve(__dirname, 'src');
 var server = new WebpackDevServer(compiler, {
     // webpack-dev-server options
 
-    contentBase: DIST_DIR,
+    contentBase: DIST_DIR+'/app',
     // Can also be an array, or: contentBase: "http://localhost/",
 
     hot: true,
@@ -54,20 +54,19 @@ var server = new WebpackDevServer(compiler, {
     quiet: false,
     noInfo: false,
     lazy: true,
-    filename: "bundle.js",
-    watchOptions: {
-        aggregateTimeout: 300,
-        poll: 1000
-    },
-    // It's a required option.
+    filename: webpackConfig.output.filename,
+    //watchOptions: {
+        //aggregateTimeout: 300,
+        //poll: 1000
+    //},
     publicPath: webpackConfig.output.publicPath,
     headers: { "X-Custom-Header": "yes" },
     stats: { colors: true },
-    inline: true
+    compress: true
     /*https: {
         cert: fs.readFileSync("path-to-cert-file.pem"),
         key: fs.readFileSync("path-to-key-file.pem"),
         cacert: fs.readFileSync("path-to-cacert-file.pem")
     }*/
 });
-server.listen(port, "localhost", function() {});
+server.listen(WEB_DEV_SERVER_PORT, "localhost", function() {});
