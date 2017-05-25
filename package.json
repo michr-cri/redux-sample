@@ -36,6 +36,7 @@
     "eslint-plugin-react": "^7.0.1",
     "express": "^4.15.3",
     "extract-text-webpack-plugin": "2.1.0",
+    "favicons-webpack-plugin": "0.0.7",
     "html-webpack-plugin": "2.28.0",
     "jest": "^20.0.3",
     "node-sass": "^4.5.3",
