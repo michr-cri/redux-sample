@@ -1,0 +1,32 @@
+{
+    "id": {
+        "attribute": "id",
+        "type": "numeric",
+        "key": true
+    },
+    "first-name": {
+        "attribute": "firstName"
+    },
+    "last-name": {
+        "attribute": "lastName"
+    },
+    "dob": {
+        "attribute": "birthDate",
+        "type": "date"
+    },
+    "boss-id": {
+        "attribute": "boss.id",
+        "type": "numeric"
+    },
+    "team-id": {
+        "attribute": "boss.team.id",
+        "type": "numeric"
+    },
+    "team-name": {
+        "attribute": "boss.team.name"
+    },
+    "supervisors-employees-id": {
+        "attribute": "supervisors.employees.id",
+        "type": "numeric"
+    }
+}

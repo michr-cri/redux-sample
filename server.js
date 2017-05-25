@@ -1,20 +1,38 @@
-var path = require('path');
-var WebpackDevServer = require("webpack-dev-server");
-var webpack = require('webpack');
-var webpackConfig = require('./webpack.config');
+const path = require('path');
+const WebpackDevServer = require("webpack-dev-server");
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.config');
+const compiler = webpack(webpackConfig);
 
-var compiler = webpack(webpackConfig);
+const bodyParser = require('body-parser');
+const backendMiddleware = require('backend-middleware');
 
 const WEB_DEV_SERVER_PORT=9000;
 const DIST_DIR = path.resolve(__dirname, 'dist');
-const SRC_DIR = path.resolve(__dirname, 'src');
-var server = new WebpackDevServer(compiler, {
+
+const backendMiddlewareConfig = {
+    routes:require('./backend-middleware-config/routes.js'),
+    handlers:require('./backend-middleware-config/handlers.js'),
+    urlParameterDateFormat: 'YYYY-MM-DD',
+    dataFiles: {
+        path: './backend-middleware-config/data',
+        extension: '.json'
+    },
+    resourceUrlParamMapFiles: {
+        path: './backend-middleware-config/mapping',
+        extension: '.map.json'
+    },
+    responseTransformerCallback:require('./backend-middleware-config/response.transformer.js'),
+    contextPath: '/backend-middleware'
+}; 
+
+const server = new WebpackDevServer(compiler, {
     // webpack-dev-server options
 
-    contentBase: DIST_DIR+'/app',
+    contentBase: DIST_DIR,
     // Can also be an array, or: contentBase: "http://localhost/",
 
-    hot: true,
+    //hot: true,
     // Enable special support for Hot Module Replacement
     // Page is no longer updated, but a "webpackHotUpdate" message is sent to the content
     // Use "webpack/hot/dev-server" as additional module in your entry point
@@ -41,6 +59,9 @@ var server = new WebpackDevServer(compiler, {
         // app.get('/some/path', function(req, res) {
         //   res.json({ custom: 'response' });
         // });
+        app.use(bodyParser.json());
+        app.use(bodyParser.urlencoded({extended:true}));
+        app.use(backendMiddleware.create(backendMiddlewareConfig));
     },
 
     // pass [static options](http://expressjs.com/en/4x/api.html#express.static) to inner express server
@@ -53,20 +74,27 @@ var server = new WebpackDevServer(compiler, {
     // webpack-dev-middleware options
     quiet: false,
     noInfo: false,
-    lazy: true,
     filename: webpackConfig.output.filename,
-    //watchOptions: {
-        //aggregateTimeout: 300,
-        //poll: 1000
-    //},
     publicPath: webpackConfig.output.publicPath,
+    watchOptions: {
+        aggregateTimeout: 300,
+        poll: 1000
+    },
     headers: { "X-Custom-Header": "yes" },
-    stats: { colors: true },
-    compress: true
+    compress: true,
+    stats: { colors  : true }
     /*https: {
         cert: fs.readFileSync("path-to-cert-file.pem"),
         key: fs.readFileSync("path-to-key-file.pem"),
         cacert: fs.readFileSync("path-to-cacert-file.pem")
     }*/
 });
-server.listen(WEB_DEV_SERVER_PORT, "localhost", function() {});
+
+server.listen(WEB_DEV_SERVER_PORT, "localhost", function(err) {
+    if(err){
+        console.error(err);
+    }else{
+        require('open')('http://localhost:'+WEB_DEV_SERVER_PORT);
+        console.log('=> Webpack development server is running on port %s',+WEB_DEV_SERVER_PORT);
+    }
+});

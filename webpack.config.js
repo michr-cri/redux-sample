@@ -16,17 +16,6 @@ const WEB_DEV_SERVER_PORT=9000;
 const config = {
     context: SRC_DIR,
     devtool: 'source-map',
-    devServer: {
-        publicPath: '/',
-        // match the output `publicPath`
-        contentBase: DIST_DIR,
-        // match the output path
-        compress: true,
-        inline: true,
-        //hot: true, //Do not use --hot option or set this to true if you specified HMR in plugin section below
-        // enable HMR on the server
-        port: WEB_DEV_SERVER_PORT
-    },
     entry: [
         'react-hot-loader/patch',
         // activate HMR for React
