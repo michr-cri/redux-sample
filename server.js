@@ -4,6 +4,8 @@ const webpack = require('webpack');
 const webpackConfig = require('./webpack.config');
 const compiler = webpack(webpackConfig);
 
+const  fs = require("fs");
+
 const bodyParser = require('body-parser');
 const backendMiddleware = require('backend-middleware');
 
@@ -24,7 +26,7 @@ const backendMiddlewareConfig = {
     },
     responseTransformerCallback:require('./backend-middleware-config/response.transformer.js'),
     contextPath: '/backend-middleware'
-}; 
+};
 
 const server = new WebpackDevServer(compiler, {
     // webpack-dev-server options
@@ -82,19 +84,19 @@ const server = new WebpackDevServer(compiler, {
     },
     headers: { "X-Custom-Header": "yes" },
     compress: true,
-    stats: { colors  : true }
-    /*https: {
-        cert: fs.readFileSync("path-to-cert-file.pem"),
-        key: fs.readFileSync("path-to-key-file.pem"),
-        cacert: fs.readFileSync("path-to-cacert-file.pem")
-    }*/
+    stats: { colors  : true },
+    https: {
+        cert: fs.readFileSync('certs/server.crt'),
+        key: fs.readFileSync('certs/server.key'),
+        cacert: fs.readFileSync('certs/ca.crt')
+    }
 });
 
 server.listen(WEB_DEV_SERVER_PORT, "localhost", function(err) {
     if(err){
         console.error(err);
     }else{
-        require('open')('http://localhost:'+WEB_DEV_SERVER_PORT);
+        require('open')('https://localhost:'+WEB_DEV_SERVER_PORT);
         console.log('=> Webpack development server is running on port %s',+WEB_DEV_SERVER_PORT);
     }
 });
