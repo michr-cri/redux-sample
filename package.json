@@ -13,12 +13,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "file-loader": "0.11.1",
     "immutable": "^3.8.1",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "url-loader": "0.5.8"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
@@ -37,6 +39,7 @@
     "express": "^4.15.3",
     "extract-text-webpack-plugin": "2.1.0",
     "favicons-webpack-plugin": "0.0.7",
+    "font-awesome": "4.7.0",
     "html-webpack-plugin": "2.28.0",
     "jest": "^20.0.3",
     "node-sass": "^4.5.3",

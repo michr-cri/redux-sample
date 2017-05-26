@@ -68,6 +68,17 @@ const config = {
                     // use style-loader in development
                     fallback: "style-loader"
                 })
+            },
+            {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader"
+                })
+            },
+            {
+                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url-loader?limit=10000',
             }
         ]
     },
@@ -85,7 +96,6 @@ const config = {
             showErrors: true,
             xhtml: true,
             inject: 'body', //true | 'head' | 'body' | false
-            //hash: true, //using the hash in file name in webpack config no need for this
             minify: {},
         }),
         extractSass,
