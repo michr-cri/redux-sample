@@ -53,7 +53,6 @@ const config = {
                         {
                             loader: "css-loader",
                             options: {
-                                modules: true,
                                 sourceMap: true
                             }
                         },
@@ -98,7 +97,7 @@ const config = {
             inject: 'body', //true | 'head' | 'body' | false
             minify: {}
         }),
-        extractSass,
+        extractSass/*,
         new FaviconsWebpackPlugin({
             logo:'./assets/images/logo.png',
             // The prefix for all image files (might be a folder or a name)
@@ -130,7 +129,7 @@ const config = {
                 yandex: false,
                 windows: true
             }
-        })
+        })*/
     ]
 };
 

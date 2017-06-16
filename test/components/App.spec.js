@@ -1,46 +1,48 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import App from '../../src/app/components/App';
+import renderer from 'react-test-renderer';
+import ReactTestUtils from 'react-dom/test-utils';
+import {findDOMNode} from 'react-dom';
+import { Provider } from 'react-redux';
 
+import App from '../../src/app/components/App';
+import AppContainer from '../../src/app/container/AppContainer';
+import store from '../../src/app/store';
 function setup() {
     const props = {
         events: ['event1', 'event2'],
         addEvent: jest.fn()
     };
 
-    const enzymeWrapper = mount(<App {...props} />);
+    const component = renderer.create(<App {...props} />);
 
     return {
         props,
-        enzymeWrapper
+        component
     };
 }
 
 describe('components', () => {
     describe('App', () => {
         it('should render self', () => {
-            const { enzymeWrapper } = setup();
+            const { component } = setup();
 
-
-            expect(enzymeWrapper.find('ul').hasClass('event-list')).toBe(true);
-            expect(enzymeWrapper.find('li').length).toBe(2);
-            enzymeWrapper.find('li').forEach(function (node, index) {
-                expect(node.text()).toEqual('event' + (index+1));
-            });
-
-            expect(enzymeWrapper.find('input').props().type).toBe('text');
-            expect(enzymeWrapper.find('input').props().id).toBe('inputTextNewEvent');
-            expect(enzymeWrapper.find('button').props().id).toBe('buttonAddEvent');
-            expect(enzymeWrapper.find('button').text()).toBe('Add');
+            let tree = component.toJSON();
+            expect(tree).toMatchSnapshot();
         });
 
         it('should call addEvent if button is clicked', () => {
-            const { enzymeWrapper, props } = setup();
-
-            const button = enzymeWrapper.find('button');
-            button.props().onClick();
-
-            expect(props.addEvent.mock.calls.length).toBe(1);
+            const app = ReactTestUtils.renderIntoDocument(
+                <Provider store={store}>
+                     <AppContainer />
+                </Provider>
+            );
+            const appDOM = findDOMNode(app);
+            let eventsLength = appDOM.querySelectorAll('.event-list>li').length;
+            let addInput = appDOM.querySelector('input');
+            addInput.value = 'Event four';
+            let addButton = appDOM.querySelector('button');
+            ReactTestUtils.Simulate.click(addButton);
+            expect(appDOM.querySelectorAll('.event-list>li').length).toEqual(eventsLength + 1);
         });
     })
 });

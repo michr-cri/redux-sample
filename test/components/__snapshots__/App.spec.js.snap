@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components App should render self 1`] = `
+<div>
+  <ul
+    className="event-list"
+  >
+    <li>
+      event1
+    </li>
+    <li>
+      event2
+    </li>
+  </ul>
+  Enter a new event: 
+  <input
+    id="inputTextNewEvent"
+    type="text"
+  />
+  <div
+    className="typeahead-container"
+  >
+    <div
+      id="divResults"
+    />
+    <input
+      id="exampleInput"
+      type="text"
+    />
+  </div>
+  <div>
+    <button
+      id="buttonAddEvent"
+      onClick={[Function]}
+    >
+      Add
+    </button>
+  </div>
+</div>
+`;
