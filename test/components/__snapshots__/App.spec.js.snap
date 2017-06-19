@@ -6,17 +6,12 @@ exports[`components App should render self 1`] = `
     className="event-list"
   >
     <li>
-      event1
+      item1
     </li>
     <li>
-      event2
+      item2
     </li>
   </ul>
-  Enter a new event: 
-  <input
-    id="inputTextNewEvent"
-    type="text"
-  />
   <div
     className="typeahead-container"
   >

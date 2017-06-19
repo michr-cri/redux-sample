@@ -1,11 +1,8 @@
-import {fromJS} from 'immutable';
+import { combineReducers } from 'redux'
+import typeioReducer from './reducer.typeio';
+import appReducer from './reducer.app';
 
-export default function reducer(state = fromJS({events: ['a','b']}), action) {
-    switch(action.type) {
-        case 'ADD_EVENT':
-            state = state.set('events', state.get('events').push(action.payload));
-            return state;
-        default:
-            return state;
-    }
-}
+export default combineReducers({
+    app: appReducer,
+    typeio: typeioReducer
+});

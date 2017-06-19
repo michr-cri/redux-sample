@@ -1,5 +1,7 @@
 import React from 'react';
-import TypeIO from './TypeIO';
+import TypeIOContainer from '../container/TypeIOContainer';
+import { Provider } from 'react-redux';
+import store from '../store';
 
 class App extends React.Component {
 
@@ -9,12 +11,14 @@ class App extends React.Component {
         return (
             <div>
                 <ul className='event-list'>
-                    {this.props.events.map( (event, index) => <li key={index}>{event}</li>)}
+                    {this.props.selectedItems.map( (selectedItem, index) => <li key={index}>{selectedItem}</li>)}
                 </ul>
-                Enter a new event: <input id='inputTextNewEvent' type='text' ref={node => {input = node}} />
-                <TypeIO />
+                <Provider store={store}>
+                    <TypeIOContainer />
+                </Provider>
                 <div>
-                    <button id='buttonAddEvent' onClick={()=>{this.props.addEvent.call(this, input.value);}}>
+                    <button id='buttonAddEvent'
+                            onClick={()=>{this.props.addSelectedItems.call(this, this.props.newSelectedItems);}}>
                         Add
                     </button>
                 </div>

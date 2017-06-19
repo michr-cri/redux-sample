@@ -7,10 +7,11 @@ import { Provider } from 'react-redux';
 import App from '../../src/app/components/App';
 import AppContainer from '../../src/app/container/AppContainer';
 import store from '../../src/app/store';
+
 function setup() {
     const props = {
-        events: ['event1', 'event2'],
-        addEvent: jest.fn()
+        selectedItems: ['item1', 'item2'],
+        addSeletedItems: jest.fn()
     };
 
     const component = renderer.create(<App {...props} />);
@@ -36,13 +37,16 @@ describe('components', () => {
                      <AppContainer />
                 </Provider>
             );
+            store.dispatch({type: 'SELECT_ITEM', payload: 'item1'});
             const appDOM = findDOMNode(app);
             let eventsLength = appDOM.querySelectorAll('.event-list>li').length;
-            let addInput = appDOM.querySelector('input');
-            addInput.value = 'Event four';
             let addButton = appDOM.querySelector('button');
+
             ReactTestUtils.Simulate.click(addButton);
+
             expect(appDOM.querySelectorAll('.event-list>li').length).toEqual(eventsLength + 1);
+
+            expect(appDOM.querySelectorAll('.event-list>li')[0].innerHTML).toContain('item1');
         });
     })
 });

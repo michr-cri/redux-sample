@@ -3,14 +3,15 @@ import App from '../components/App';
 
 function mapStateToProps(state) {
     return {
-        events: state.get('events')
+        selectedItems: state.app.get('selectedItems'),
+        newSelectedItems: state.typeio.get('selectedItems')
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        addEvent: (newEvent) => {
-            dispatch({type: 'ADD_EVENT', payload: newEvent});
+        addSelectedItems: (newSelectedItems) => {
+            dispatch({type: 'ADD_SELECTED_ITEMS', payload: newSelectedItems});
         }
     };
 }

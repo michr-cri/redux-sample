@@ -13,6 +13,7 @@ class TypeIO extends React.Component {
                 minLength: 0,
                 name: 'states',
                 resultsContainer:'#divResults',
+                //initialResults: [{text:'Michigan', value:'MI'}]
             },
             {
                 display:'text',
@@ -23,11 +24,15 @@ class TypeIO extends React.Component {
                     }
                 }
             }
-        );
+        ).on('typeahead:selected', this.handleSelected.bind(this));
     }
 
     shouldComponentUpdate() {
         return false;
+    }
+
+    handleSelected($e, datum) {
+        this.props.selectItem(datum.value);
     }
 
     render() {
