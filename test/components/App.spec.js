@@ -7,6 +7,9 @@ import { Provider } from 'react-redux';
 import App from '../../src/app/components/App';
 import AppContainer from '../../src/app/container/AppContainer';
 import store from '../../src/app/store';
+require('typeio');
+import jQuery from 'jquery';
+window.$ = window.jQuery = jQuery;
 
 function setup() {
     const props = {
@@ -23,7 +26,10 @@ function setup() {
 }
 
 describe('components', () => {
-    describe('App', () => {
+    fdescribe('App', () => {
+        beforeEach(()=>{
+            store.dispatch({type: 'RESET'});
+        });
         it('should render self', () => {
             const { component } = setup();
 
@@ -31,22 +37,31 @@ describe('components', () => {
             expect(tree).toMatchSnapshot();
         });
 
-        it('should call addEvent if button is clicked', () => {
-            const app = ReactTestUtils.renderIntoDocument(
+        it('should add one item when add button is clicked', () => {
+            
+            let app = ReactTestUtils.renderIntoDocument(
                 <Provider store={store}>
                      <AppContainer />
                 </Provider>
             );
-            store.dispatch({type: 'SELECT_ITEM', payload: 'item1'});
             const appDOM = findDOMNode(app);
-            let eventsLength = appDOM.querySelectorAll('.event-list>li').length;
-            let addButton = appDOM.querySelector('button');
 
+            let eventsLength = appDOM.querySelectorAll('.event-list>li').length;
+
+            let addInput = appDOM.querySelector('#exampleInput');
+
+            $(addInput).selectItem('New York');
+
+            let addButton = appDOM.querySelector('button');
             ReactTestUtils.Simulate.click(addButton);
 
-            expect(appDOM.querySelectorAll('.event-list>li').length).toEqual(eventsLength + 1);
+            console.log(appDOM.querySelector('#divResults').innerHTML);
 
-            expect(appDOM.querySelectorAll('.event-list>li')[0].innerHTML).toContain('item1');
+            expect(appDOM.querySelectorAll('.event-list>li').length).toEqual(eventsLength + 2);
+
+            expect(appDOM.querySelectorAll('.event-list>li')[0].innerHTML).toContain('MI');
+            expect(appDOM.querySelectorAll('.event-list>li')[1].innerHTML).toContain('MI');
+            expect(appDOM.querySelectorAll('.event-list>li')[2].innerHTML).toContain('NY');
         });
     })
 });

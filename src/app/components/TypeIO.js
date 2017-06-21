@@ -6,6 +6,7 @@ class TypeIO extends React.Component {
     componentDidMount() {
         this.$el = $(this.el);
 
+        let initialResults = [{text:'Michigan', value:'MI'}];
         this.$el.typeIO(
             {
                 hint: true,
@@ -13,7 +14,8 @@ class TypeIO extends React.Component {
                 minLength: 0,
                 name: 'states',
                 resultsContainer:'#divResults',
-                //initialResults: [{text:'Michigan', value:'MI'}]
+                selectedTermRemovedCallback: this.handleSelectedTermRemoved.bind(this),
+                initialResults: initialResults
             },
             {
                 display:'text',
@@ -25,13 +27,15 @@ class TypeIO extends React.Component {
                 }
             }
         ).on('typeahead:selected', this.handleSelected.bind(this));
+
+        this.props.initializeResults(initialResults);
     }
 
-    shouldComponentUpdate() {
-        return false;
+    handleSelectedTermRemoved(removedTerm) {
+        this.props.removeItem(removedTerm);
     }
 
-    handleSelected($e, datum) {
+    handleSelected(event, datum) {
         this.props.selectItem(datum.value);
     }
 

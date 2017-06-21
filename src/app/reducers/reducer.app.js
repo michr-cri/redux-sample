@@ -6,7 +6,7 @@ const intitalState = fromJS({
 export default function appReducer(state = intitalState, action) {
     switch(action.type) {
         case 'ADD_SELECTED_ITEMS':
-            state = state.set('selectedItems', state.get('selectedItems').push(action.payload));
+            state = state.set('selectedItems', state.get('selectedItems').concat(action.payload));
             return state;
         default:
             return state;

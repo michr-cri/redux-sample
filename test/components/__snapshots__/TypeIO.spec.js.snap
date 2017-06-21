@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components App should render self 1`] = `
+<div
+  className="typeahead-container"
+>
+  <div
+    id="divResults"
+  />
+  <input
+    id="exampleInput"
+    type="text"
+  />
+</div>
+`;
