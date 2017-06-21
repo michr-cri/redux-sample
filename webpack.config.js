@@ -96,7 +96,7 @@ const config = {
             showErrors: true,
             xhtml: true,
             inject: 'body', //true | 'head' | 'body' | false
-            minify: {},
+            minify: {}
         }),
         extractSass,
         new FaviconsWebpackPlugin({

@@ -5,6 +5,7 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
+      <%= require('html-loader!./header.html') %>
       <div id="app"></div>
   </body>
 </html>
