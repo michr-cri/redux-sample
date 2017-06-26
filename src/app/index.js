@@ -1,14 +1,34 @@
 import '../assets/styles/styles.scss';
-//import 'font-awesome/css/font-awesome.css';
 import React from 'react';
 import { render } from 'react-dom';
 import App from './container/AppContainer';
 import { Provider } from 'react-redux';
-import store from './store';
+import FormApi from './apis/FormApi';
+import {createStore, applyMiddleware} from 'redux';
+import reducer from './reducers/reducer';
+import thunk from 'redux-thunk';
 
-render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.getElementById('app')
-);
+FormApi.fetchSeedData().then(source => {
+    FormApi.fetchInitialData().then(initialResults => {
+        let typeioIntialState = {
+            typeio: {
+                initialResults: initialResults,
+                source: source,
+                selectedItems: []
+            },
+            app: {
+                formDataLoaded: false,
+                selectedItems: []
+            }
+        };
+        let store = createStore(reducer,typeioIntialState, applyMiddleware(thunk));
+        render(
+            <Provider store={store}>
+                <App />
+            </Provider>,
+            document.getElementById('app')
+        );
+    });
+});
+
+

@@ -1,6 +1,13 @@
 import { connect } from 'react-redux';
 import TypeIO from '../components/TypeIO';
 
+function mapStateToProps(state) {
+    return {
+        initialResults: state.typeio.initialResults,
+        source: state.typeio.source
+    }
+}
+
 function mapDispatchToProps(dispatch) {
     return {
         initializeResults: (initialResults) => {
@@ -8,7 +15,7 @@ function mapDispatchToProps(dispatch) {
             let initialValues = [];
             for(let i=0;i<initialResults.length;i++) {
                 initialValues.push(initialResults[i].value);
-                dispatch({type: 'SELECT_ITEM', payload: initialResults[i].value});
+                // dispatch({type: 'SELECT_ITEM', payload: initialResults[i].value});
             }
             dispatch({type: 'ADD_SELECTED_ITEMS', payload: initialValues});
         },
@@ -21,4 +28,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(null, mapDispatchToProps)(TypeIO);
+export default connect(mapStateToProps, mapDispatchToProps)(TypeIO);

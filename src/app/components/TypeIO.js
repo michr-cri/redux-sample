@@ -6,7 +6,9 @@ class TypeIO extends React.Component {
     componentDidMount() {
         this.$el = $(this.el);
 
-        let initialResults = [{text:'Michigan', value:'MI'}];
+        let initialResults = this.props.initialResults;
+        let source = this.props.source;
+
         this.$el.typeIO(
             {
                 hint: true,
@@ -19,7 +21,7 @@ class TypeIO extends React.Component {
             },
             {
                 display:'text',
-                source: [{text:'Michigan', value:'MI'}, {text:'New York', value:'NY'}],
+                source: source,
                 templates: {
                     suggestion: function(data) {
                         return '<div>' + data.text + '</div>';

@@ -14,6 +14,11 @@ const DIST_DIR = path.resolve(__dirname, 'dist');
 const SRC_DIR = path.resolve(__dirname, 'src');
 const WEB_DEV_SERVER_PORT=9000;
 
+const APP_URL = {
+    prod: JSON.stringify('prod-url'),
+    offline: JSON.stringify('https://localhost:9000/backend-middleware/')
+};
+
 const config = {
     context: SRC_DIR,
     devtool: 'source-map',
@@ -96,6 +101,9 @@ const config = {
             xhtml: true,
             inject: 'body', //true | 'head' | 'body' | false
             minify: {}
+        }),
+        new webpack.DefinePlugin({
+            'APP_URL': APP_URL[process.env.NODE_ENV]
         }),
         extractSass/*,
         new FaviconsWebpackPlugin({

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run clean && webpack --progress --colors",
     "clean": "node node_modules/rimraf/bin.js dist",
-    "start": "npm run clean && webpack --progress --colors && node ./server.js",
+    "start:offline": "npm run clean && webpack --progress --colors && NODE_ENV=offline node ./server.js",
     "build:prod": "npm run clean && webpack -p",
     "test": "jest --coverage --setupTestFrameworkScriptFile=./test/setup.js"
   },
@@ -14,13 +14,14 @@
   "license": "ISC",
   "dependencies": {
     "file-loader": "0.11.1",
-    "immutable": "^3.8.1",
     "jquery": "^3.2.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.4",
     "redux": "^3.6.0",
+    "redux-async-initial-state": "^0.2.0",
+    "redux-thunk": "^2.2.0",
     "typeio": "^1.1.8",
     "url-loader": "0.5.8"
   },
@@ -50,6 +51,7 @@
     "react-dom": "^15.5.4",
     "react-hot-loader": "3.0.0-beta.7",
     "react-test-renderer": "^15.5.4",
+    "redux-mock-store": "^1.2.3",
     "rimraf": "2.6.1",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.17.0",
