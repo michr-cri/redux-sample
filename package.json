@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm run clean && webpack --progress --colors",
     "clean": "node node_modules/rimraf/bin.js dist",
-    "start:offline": "npm run clean && webpack --progress --colors && NODE_ENV=offline node ./server.js",
+    "build:offline": "npm run clean && webpack --env=offline --progress --colors",
+    "start:offline": "npm run build:offline && NODE_ENV=offline node ./server.js",
+    "build:dev": "npm run clean && webpack --env=dev --progress --colors",
+    "start:dev": "npm run build:offline && NODE_ENV=dev node ./server.js",
     "build:prod": "npm run clean && webpack -p",
-    "test": "jest --coverage --setupTestFrameworkScriptFile=./test/setup.js"
+    "test": "jest --testPathPattern ./test --coverage --setupTestFrameworkScriptFile=./test/setup.js"
   },
   "author": "",
   "license": "ISC",
@@ -56,8 +58,10 @@
     "sass-loader": "^6.0.5",
     "style-loader": "^0.17.0",
     "webpack": "2.6.0",
+    "webpack-config": "^7.0.0",
     "webpack-dev-middleware": "^1.10.2",
     "webpack-dev-server": "^2.4.5",
-    "webpack-hot-middleware": "^2.18.0"
+    "webpack-hot-middleware": "^2.18.0",
+    "webpack-merge": "^4.1.0"
   }
 }

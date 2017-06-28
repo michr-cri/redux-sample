@@ -2,7 +2,7 @@ import FormApi from '../../src/app/apis/FormApi';
 import jQuery from 'jquery';
 window.$ = window.jQuery = jQuery;
 
-describe('Form APIs', () => {
+xdescribe('Form APIs', () => {
     it('fetch form seed data', () => {
         spyOn($, 'ajax');
 

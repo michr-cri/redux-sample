@@ -5,7 +5,7 @@ class FormApi {
     static fetchSeedData() {
         return jQuery.ajax({
             method: 'GET',
-            url: (typeof APP_URL !== 'undefined')?APP_URL:'' + '/states-seed',
+            url: APP_URL + '/states-seed',
             header: {
                 'Content-Type': 'application/json'
             }
@@ -14,7 +14,7 @@ class FormApi {
     static fetchInitialData() {
         return jQuery.ajax({
             method: 'GET',
-            url: (typeof APP_URL !== 'undefined')?APP_URL:'' + '/states',
+            url: APP_URL + '/states',
             header: {
                 'Content-Type': 'application/json'
             }

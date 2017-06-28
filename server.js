@@ -1,7 +1,9 @@
 const path = require('path');
 const WebpackDevServer = require("webpack-dev-server");
 const webpack = require('webpack');
-const webpackConfig = require('./webpack.config');
+
+const environment = process.env.NODE_ENV;
+const webpackConfig = require('./webpack.'+environment);
 const compiler = webpack(webpackConfig);
 
 const  fs = require("fs");
