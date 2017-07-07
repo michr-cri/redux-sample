@@ -1,4 +1,8 @@
 @import '~typeio/dist/assets/styles/typeio-styles.css';
+@import './variables';
+@import './spinner';
+@import './visibililty';
+
 .event-list {
     color: #3f51b5;
 }

@@ -20,37 +20,6 @@ describe('components', () => {
             let tree = component.toJSON();
             expect(tree).toMatchSnapshot();
         });
-
-        it('should remove one item when remove link is clicked', () => {
-            // let typeio = ReactTestUtils.renderIntoDocument(
-            //     <Provider store={store}>
-            //          <TypeIOContainer />
-            //     </Provider>
-            // );
-            // let typeioDOM = findDOMNode(typeio);
-            // // let eventsLength = appDOM.querySelectorAll('.event-list>li').length;
-            //
-            // let addInput = typeioDOM.querySelector('#exampleInput');
-            //
-            // $(addInput).selectItem('New York');
-            //
-            // typeio = ReactTestUtils.renderIntoDocument(
-            //     <Provider store={store}>
-            //         <TypeIOContainer />
-            //     </Provider>
-            // );
-            // let newTypeioDOM = findDOMNode(typeio);
-            // expect(typeioDOM).toEqual(newTypeioDOM);
-            //console.log(newTypeioDOM.querySelector('#divResults').innerHTML);
-            // let removeLink = typeioDOM.querySelector('#aTypeaheadSelected-MI');
-            // console.log(removeLink);
-            //ReactTestUtils.Simulate.click(removeLink);
-            //
-            // expect(appDOM.querySelectorAll('.event-list>li').length).toEqual(eventsLength + 1);
-            //
-            // expect(appDOM.querySelectorAll('.event-list>li')[0].innerHTML).toContain('MI');
-            //TypeIOContainer.handleSelectedTermRemoved('item');
-        });
     })
 });
 

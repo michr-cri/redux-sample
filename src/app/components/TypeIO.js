@@ -1,36 +1,42 @@
 import React from 'react';
-import jQuery from 'jquery';
-window.$ = window.jQuery = jQuery;
-require('typeio');
+import 'jquery';
+import 'typeio';
+import FormApi from '../apis/FormApi';
+
 class TypeIO extends React.Component {
     componentDidMount() {
         this.$el = $(this.el);
 
-        let initialResults = this.props.initialResults;
-        let source = this.props.source;
-
-        this.$el.typeIO(
-            {
-                hint: true,
-                highlight: true,
-                minLength: 0,
-                name: 'states',
-                resultsContainer:'#divResults',
-                selectedTermRemovedCallback: this.handleSelectedTermRemoved.bind(this),
-                initialResults: initialResults
-            },
-            {
-                display:'text',
-                source: source,
-                templates: {
-                    suggestion: function(data) {
-                        return '<div>' + data.text + '</div>';
+        FormApi.fetchSeedData().then(source => {
+            FormApi.fetchInitialData().then(initialResults => {
+                this.$el.typeIO(
+                    {
+                        hint: true,
+                        highlight: true,
+                        minLength: 0,
+                        name: 'states',
+                        resultsContainer:'#divResults',
+                        selectedTermRemovedCallback: this.handleSelectedTermRemoved.bind(this),
+                        initialResults: initialResults
+                    },
+                    {
+                        display:'text',
+                        source: source,
+                        templates: {
+                            suggestion: function(data) {
+                                return '<div>' + data.text + '</div>';
+                            }
+                        }
                     }
-                }
-            }
-        ).on('typeahead:selected', this.handleSelected.bind(this));
+                ).on('typeahead:selected', this.handleSelected.bind(this));
 
-        this.props.initializeResults(initialResults);
+                this.props.initializeResults(initialResults);
+            });
+        });
+        // let initialResults = this.props.initialResults;
+        // let source = this.props.source;
+
+
     }
 
     handleSelectedTermRemoved(removedTerm) {

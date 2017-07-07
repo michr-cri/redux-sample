@@ -1,5 +1,4 @@
-import jQuery from 'jquery';
-window.$ = window.jQuery = jQuery;
+import 'jquery';
 
 class FormApi {
     static fetchSeedData() {
@@ -15,6 +14,17 @@ class FormApi {
         return jQuery.ajax({
             method: 'GET',
             url: APP_URL + '/states',
+            header: {
+                'Content-Type': 'application/json'
+            }
+        });
+    }
+
+    static saveFormData(selectedItem) {
+        return jQuery.ajax({
+            method: 'POST',
+            url: APP_URL + '/states',
+            data: selectedItem,
             header: {
                 'Content-Type': 'application/json'
             }

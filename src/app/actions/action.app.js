@@ -27,14 +27,16 @@ export function fetchFormInitialData() {
 export function formDataLoaded() {
     return {type: 'FORM_DATA_LOADED'};
 }
-//
-// export function fetchFormData() {
-//     return (dispatch) => {
-//         Promise.all([
-//             dispatch(fetchFormSeedData()),
-//             dispatch(fetchFormInitialData())
-//         ]).then(() => {
-//             dispatch(formDataLoaded());
-//         });
-//     }
-// }
+
+export function saveFormDataSuccess() {
+    return {type: 'FORM_DATA_SAVED'};
+}
+
+export function saveFormData(selectItems) {
+    return (dispatch) => {
+        FormApi.saveFormData(selectItems).then(() => {
+            dispatch(saveFormDataSuccess());
+        });
+    };
+}
+

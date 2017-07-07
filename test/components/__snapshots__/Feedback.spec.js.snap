@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components Feedback should render self 1`] = `
+<div
+  id="divFeedbackBlock"
+>
+  <h4
+    id="h4Title"
+  >
+    title
+  </h4>
+  <p
+    id="pMessage"
+  >
+    message
+  </p>
+</div>
+`;

@@ -2,33 +2,27 @@ import '../assets/styles/styles.scss';
 import React from 'react';
 import { render } from 'react-dom';
 import App from './container/AppContainer';
+import Login from './container/LoginContainer';
 import { Provider } from 'react-redux';
-import FormApi from './apis/FormApi';
-import {createStore, applyMiddleware} from 'redux';
-import reducer from './reducers/reducer';
-import thunk from 'redux-thunk';
+import setupAjax from './ajax.setup';
+import { HashRouter, Route, Switch } from 'react-router-dom';
+import store from './store';
+import FeedbackContainer from './container/FeedbackContainer';
+setupAjax();
 
-FormApi.fetchSeedData().then(source => {
-    FormApi.fetchInitialData().then(initialResults => {
-        let typeioIntialState = {
-            typeio: {
-                initialResults: initialResults,
-                source: source,
-                selectedItems: []
-            },
-            app: {
-                formDataLoaded: false,
-                selectedItems: []
-            }
-        };
-        let store = createStore(reducer,typeioIntialState, applyMiddleware(thunk));
-        render(
-            <Provider store={store}>
-                <App />
-            </Provider>,
-            document.getElementById('app')
-        );
-    });
-});
+render(
+    <Provider store={store}>
+        <div>
+            <FeedbackContainer />
+        <HashRouter >
+            <Switch>
+                <Route exact path="/" component={Login}/>
+                <Route path="/app" component={App}/>
+            </Switch>
+        </HashRouter>
+        </div>
+    </Provider>,
+    document.getElementById('mainContent')
+);
 
 

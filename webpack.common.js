@@ -20,6 +20,9 @@ const commonConfig = {
         //the entry point of our app
         './app/index.js'
     ],
+    devServer: {
+        historyApiFallback: true
+    },
     output: {
         path: DIST_DIR,
         filename: 'bundle.[hash].js',
