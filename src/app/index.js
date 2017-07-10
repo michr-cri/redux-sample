@@ -7,20 +7,17 @@ import { Provider } from 'react-redux';
 import setupAjax from './ajax.setup';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import store from './store';
-import FeedbackContainer from './container/FeedbackContainer';
 setupAjax();
 
 render(
     <Provider store={store}>
-        <div>
-            <FeedbackContainer />
         <HashRouter >
             <Switch>
                 <Route exact path="/" component={Login}/>
+                <Route path="/?error=:errorId" component={Login}/>
                 <Route path="/app" component={App}/>
             </Switch>
         </HashRouter>
-        </div>
     </Provider>,
     document.getElementById('mainContent')
 );

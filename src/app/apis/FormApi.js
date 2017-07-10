@@ -1,4 +1,5 @@
 import 'jquery';
+//window.$ = window.jQuery = jQuery;
 
 class FormApi {
     static fetchSeedData() {

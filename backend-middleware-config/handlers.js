@@ -51,6 +51,9 @@ var handlers = {
             console.log('logged out');
         }
         return new HandlerResponse(200, httpHeaders, 'user session terminated', 'auth');
+    },
+    unauthenticated: function(handlerPayload, responseTransformerCallback) {
+        return new HandlerResponse(401, httpHeaders, 'unauthenticated access', 'auth');
     }
 };
 

@@ -32,10 +32,11 @@ class TypeIO extends React.Component {
 
                 this.props.initializeResults(initialResults);
             });
+        }, error => {
+            if(error.status === 401 || error.status === 403) {
+                document.location.replace('/#?error=' + error.status + '&redirect-url=' + window.location.hash);
+            }
         });
-        // let initialResults = this.props.initialResults;
-        // let source = this.props.source;
-
 
     }
 

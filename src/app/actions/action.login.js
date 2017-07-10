@@ -4,18 +4,21 @@ export function authenticationSucceeded() {
     return {type: 'AUTHENTICATION_SUCCESS'};
 }
 
-export function authenticationFailed() {
-    return {type: 'SHOW_ERROR_MESSAGE', payload: {title: 'title', message: 'message'}}
+export function authenticationFailed(title, message) {
+    return {type: 'SHOW_ERROR_MESSAGE', payload: {title: title, message: message}}
 }
 
-export function login(username, password) {
+export function login(username, password, redirectUrl) {
     return (dispatch) => {
         LoginApi.login(username, password).then(() => {
             dispatch(authenticationSucceeded());
-            document.location.replace('/#/app');
+            if(!redirectUrl) {
+                redirectUrl = '/#/app';
+            }
+            document.location.replace(redirectUrl);
         }, (response)=>{
             if(response.status === 401) {
-                dispatch(authenticationFailed());
+                dispatch(authenticationFailed('Wrong authentication', 'You enter the wrong username and password'));
             }
         });
     }

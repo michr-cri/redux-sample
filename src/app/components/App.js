@@ -1,6 +1,5 @@
 import React from 'react';
 import TypeIOContainer from '../container/TypeIOContainer';
-import FormApi from '../apis/FormApi';
 
 class App extends React.Component {
     render() {

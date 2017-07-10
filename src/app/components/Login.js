@@ -1,12 +1,15 @@
 import React from 'react';
-import Feedback from '../container/FeedbackContainer';
-import {Redirect} from 'react-router-dom';
+import util from '../shared/util';
+import FeedbackContainer from '../container/FeedbackContainer';
 
 class Login extends React.Component {
 
     componentWillMount() {
-        window.history.pushState({}, 'Login', '/');
-        this.props.logout();
+        //window.history.pushState({}, 'Login', '/');
+        let errorId = util.getUrlParam('error');
+        if(errorId === '401') {
+            this.props.showFeedback('Unauthenticated User', 'You must enter correct username and password first');
+        }
     }
 
     handleLogin(event) {
@@ -15,25 +18,29 @@ class Login extends React.Component {
 
         let username = this.textUsername.value;
         let password = this.passwordPassword.value;
+        let redirectUrl = util.getUrlParam('redirect-url');
 
-        this.props.login(username, password);
+        this.props.login(username, password, redirectUrl);
     }
 
     render() {
 
         return (
-            <form id="frmLogin" onSubmit={this.handleLogin.bind(this)}>
-                <div>
-                    <label id="labelUsername" htmlFor="textUsername">Unique Name</label>
-                    <input id="textUsername" type="text" name="username" required ref={el => this.textUsername = el}/>
-                </div>
+            <div>
+                <FeedbackContainer />
+                <form id="frmLogin" onSubmit={this.handleLogin.bind(this)}>
+                    <div>
+                        <label id="labelUsername" htmlFor="textUsername">Unique Name</label>
+                        <input id="textUsername" type="text" name="username" required ref={el => this.textUsername = el}/>
+                    </div>
 
-                <div>
-                    <label id="labelPassword" htmlFor="passwordPassword">Your level-2 password</label>
-                    <input id="passwordPassword" type="password" name="password" required ref={el => this.passwordPassword = el}/>
-                </div>
-                <button id="submitLogin" type="submit" value="SIGN IN">Log in</button>
-            </form>
+                    <div>
+                        <label id="labelPassword" htmlFor="passwordPassword">Your level-2 password</label>
+                        <input id="passwordPassword" type="password" name="password" required ref={el => this.passwordPassword = el}/>
+                    </div>
+                    <button id="submitLogin" type="submit" value="SIGN IN">Log in</button>
+                </form>
+            </div>
         );
     }
 }

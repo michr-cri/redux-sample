@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import {withRouter} from 'react-router';
-import {login, logout} from '../actions/action.login';
+import {login, logout, authenticationFailed} from '../actions/action.login';
 import Login from '../components/Login';
 
 function mapStateToProps(state) {
@@ -11,11 +11,14 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        login: (username, password) => {
-            dispatch(login(username, password));
+        login: (username, password, redirectUrl) => {
+            dispatch(login(username, password, redirectUrl));
         },
         logout: () => {
             dispatch(logout());
+        },
+        showFeedback: (title, message) => {
+            dispatch(authenticationFailed(title, message));
         }
     };
 }
