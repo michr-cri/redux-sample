@@ -6,5 +6,37 @@
     {
         "text": "New York",
         "value": "NY"
+    },
+    {
+        "text": "California",
+        "value": "CA"
+    },
+    {
+        "text": "Texas",
+        "value": "TX"
+    },
+    {
+        "text": "Florida",
+        "value": "FL"
+    },
+    {
+        "text": "Arizona",
+        "value": "AZ"
+    },
+    {
+        "text": "Alaska",
+        "value": "AK"
+    },
+    {
+        "text": "New Jersey",
+        "value": "NJ"
+    },
+    {
+        "text": "Washington",
+        "value": "WA"
+    },
+    {
+        "text": "Ohio",
+        "value": "OH"
     }
 ]

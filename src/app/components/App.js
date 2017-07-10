@@ -2,6 +2,7 @@ import React from 'react';
 import TypeIOContainer from '../container/TypeIOContainer';
 
 class App extends React.Component {
+
     render() {
         return ( <div>
             <ul className='event-list'>

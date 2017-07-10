@@ -1,3 +1,7 @@
 [
-    {"value": "MI", "text": "Michigan"}
+    {"value": "MI", "text": "Michigan"},
+    {"value": "NY", "text": "New York"},
+    {"value": "CA", "text": "California"},
+    {"value": "OH", "text": "Ohio"},
+    {"value": "AZ", "text": "Arizona"}
 ]
