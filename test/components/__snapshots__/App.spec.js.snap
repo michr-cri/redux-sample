@@ -12,23 +12,21 @@ exports[`components App should render self 1`] = `
       item2
     </li>
   </ul>
-  <div
-    className="typeahead-container"
-  >
-    <div
-      id="divResults"
-    />
-    <input
-      id="exampleInput"
-      type="text"
-    />
-  </div>
+  <Connect(TypeIO) />
   <div>
     <button
-      id="buttonAddEvent"
+      id="buttonAdd"
       onClick={[Function]}
     >
       Add
+    </button>
+  </div>
+  <div>
+    <button
+      id="buttonSave"
+      onClick={[Function]}
+    >
+      Save
     </button>
   </div>
 </div>

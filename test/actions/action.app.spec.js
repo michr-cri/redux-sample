@@ -62,4 +62,28 @@ describe('app actions', () => {
         };
         expect(appActions.formDataLoaded()).toEqual(expectedAction);
     });
+
+    it('save form data success', ()=> {
+        const expectedAction = {
+            type: 'FORM_DATA_SAVED'
+        };
+        expect(appActions.saveFormDataSuccess()).toEqual(expectedAction);
+    });
+
+    it('save form data', () => {
+        const promise = new Promise(function(resolve, reject) {resolve();});
+        const dispatch = jest.fn();
+        const action = appActions.saveFormData();
+
+        jest.spyOn(FormApi, 'saveFormData').mockReturnValue(promise);
+        action(dispatch);
+
+        return promise.then(() => {
+            expect(dispatch.mock.calls[0][0]).toEqual(
+                {
+                    type: 'FORM_DATA_SAVED'
+                }
+            );
+        });
+    });
 });

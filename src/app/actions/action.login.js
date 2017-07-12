@@ -28,8 +28,6 @@ export function logout() {
     return (dispatch) => {
         LoginApi.logout().then(() => {
             dispatch(logoutSucceeded());
-        }, ()=>{
-            dispatch(logoutSucceeded());
         });
     }
 }

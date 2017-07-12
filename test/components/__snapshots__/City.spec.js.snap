@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components City should render self 1`] = `
+<div>
+  <ul
+    className="city-list"
+  >
+    <li>
+      Ann Arbor
+    </li>
+    <li>
+      Detroit
+    </li>
+  </ul>
+  <a
+    className="disabled"
+    href="javascript:void(0);"
+    id="aPrev"
+    onClick={[Function]}
+  >
+    Prev
+  </a>
+  <a
+    href="#/cities?page=1&page-size=2"
+    onClick={[Function]}
+  >
+    1
+  </a>
+  <a
+    href="#/cities?page=2&page-size=2"
+    onClick={[Function]}
+  >
+    2
+  </a>
+  <a
+    href="#/cities?page=3&page-size=2"
+    onClick={[Function]}
+  >
+    3
+  </a>
+  <a
+    href="#/cities?page=4&page-size=2"
+    onClick={[Function]}
+  >
+    4
+  </a>
+  <a
+    className=""
+    href="javascript:void(0);"
+    onClick={[Function]}
+  >
+    Next
+  </a>
+</div>
+`;

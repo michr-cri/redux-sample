@@ -3,6 +3,7 @@ import City from '../components/City';
 import {fetchCities, goToPage} from '../actions/action.city';
 
 function mapStateToProps(state) {
+    console.log(state.city.cities);
     return {
         cities: state.city.cities,
         totalCount: state.city.totalCount,

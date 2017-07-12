@@ -14,7 +14,7 @@ describe('login actions', () => {
             type: 'SHOW_ERROR_MESSAGE',
             payload: {title: 'title', message: 'message'}
         };
-        expect(loginActions.authenticationFailed()).toEqual(expectedAction);
+        expect(loginActions.authenticationFailed('title', 'message')).toEqual(expectedAction);
     });
 
     it('login action - success', () => {
@@ -46,9 +46,33 @@ describe('login actions', () => {
             expect(dispatch.mock.calls[0][0]).toEqual(
                 {
                     type: 'SHOW_ERROR_MESSAGE',
-                    payload: {title: 'title', message: 'message'}
+                    payload: {title: 'Wrong authentication', message: 'You enter the wrong username and password'}
                 }
             );
         });
+    });
+
+    it('logout action', () => {
+        const promise = new Promise(function(resolve, reject) {resolve();});
+        const dispatch = jest.fn();
+        const action = loginActions.logout();
+
+        jest.spyOn(LoginApi, 'logout').mockReturnValue(promise);
+        action(dispatch);
+
+        return promise.catch(() => {
+            expect(dispatch.mock.calls[0][0]).toEqual(
+                {
+                    type: 'LOGOUT_SUCCESS',
+                }
+            );
+        });
+    });
+
+    it('logout success', () => {
+        const expectedAction = {
+            type: 'LOGOUT_SUCCESS',
+        };
+        expect(loginActions.logoutSucceeded()).toEqual(expectedAction);
     });
 });

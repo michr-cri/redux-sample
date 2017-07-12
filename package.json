@@ -67,5 +67,10 @@
     "webpack-dev-server": "^2.4.5",
     "webpack-hot-middleware": "^2.18.0",
     "webpack-merge": "^4.1.0"
+  },
+  "jest": {
+    "globals": {
+      "APP_URL": "url"
+    }
   }
 }

@@ -21,11 +21,13 @@ var setupAjax = function (appName) {
                     if (error === 'not-authenticated') {
                         //authHelper.notAuthenticatedHandler(appName);
                     }
+                    document.location.replace('/#?error=' + jqxhr.status + '&redirect-url=' + window.location.hash);
                     break;
                 case 403:
                     if (error === 'not-authorized') {
                         //authHelper.notAuthorizedHandler();
                     }
+                    document.location.replace('/#?error=' + jqxhr.status + '&redirect-url=' + window.location.hash);
                     break;
                 case 404:
                     //util.redirect('FRONT_END_BASE_URL/index.html#404-page-not-found');

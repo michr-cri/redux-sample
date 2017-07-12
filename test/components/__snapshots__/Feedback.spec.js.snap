@@ -2,6 +2,7 @@
 
 exports[`components Feedback should render self 1`] = `
 <div
+  className="warning-msg"
   id="divFeedbackBlock"
 >
   <h4
