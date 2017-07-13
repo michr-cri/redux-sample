@@ -13,6 +13,16 @@ const extractSass = new ExtractTextPlugin({
 const DIST_DIR = path.resolve(__dirname, 'dist');
 const SRC_DIR = path.resolve(__dirname, 'src');
 
+const isExternal = function(module) {
+    var context = module.context;
+
+    if (typeof context !== 'string') {
+        return false;
+    }
+
+    return context.indexOf('node_modules') !== -1;
+};
+
 const commonConfig = {
     context: SRC_DIR,
     devtool: 'source-map',
@@ -84,6 +94,13 @@ const commonConfig = {
             xhtml: true,
             inject: 'body', //true | 'head' | 'body' | false
             minify: {}
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendors',
+            filename: 'vendors-[hash].js',
+            minChunks: function(module) {
+                return isExternal(module);
+            }
         }),
         extractSass,/*
         new FaviconsWebpackPlugin({

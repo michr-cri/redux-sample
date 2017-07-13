@@ -32,7 +32,7 @@ describe('components', () => {
             let paginationResult = {page: cities, totalCount: totalCount};
             let fetchCitiesPromise = new Promise(function(resolve) {resolve(paginationResult);});
 
-            jest.spyOn(CityApi, 'fetchCities').mockReturnValueOnce(fetchCitiesPromise);
+            jest.spyOn(CityApi, 'fetchCities').mockReturnValue(fetchCitiesPromise);
             let store = createStore(reducer, initialState, applyMiddleware(thunk));
 
             component  = ReactTestUtils.renderIntoDocument(
@@ -58,22 +58,44 @@ describe('components', () => {
             let paginationResult = {page: cities, totalCount: totalCount};
             let fetchCitiesPromise = new Promise(function(resolve) {resolve(paginationResult);});
 
-            jest.spyOn(CityApi, 'fetchCities').mockReturnValueOnce(fetchCitiesPromise);
+            jest.spyOn(CityApi, 'fetchCities').mockReturnValue(fetchCitiesPromise);
             let componentDOM = findDOMNode(component);
             let prevLink = componentDOM.querySelector('#aPrev');
-            console.log('before click');
             ReactTestUtils.Simulate.click(prevLink);
-            console.log('after click');
 
             component.forceUpdate();
 
-            let newComponentDOM = findDOMNode(component);
+            setTimeout(function() {
+                let newComponentDOM = findDOMNode(component);
 
-            console.log(newComponentDOM.querySelectorAll('.city-list>li')[0]);
-            expect(newComponentDOM.querySelectorAll('.city-list>li').length).toEqual(2);
+                expect(newComponentDOM.querySelectorAll('.city-list>li').length).toEqual(2);
 
-            expect(newComponentDOM.querySelectorAll('.city-list>li')[0].innerHTML).toContain('New York');
-            expect(newComponentDOM.querySelectorAll('.city-list>li')[1].innerHTML).toContain('LA');
+                expect(newComponentDOM.querySelectorAll('.city-list>li')[0].innerHTML).toContain('New York');
+                expect(newComponentDOM.querySelectorAll('.city-list>li')[1].innerHTML).toContain('LA');
+            },0);
+        });
+
+        it('Next link clicked', () => {
+            let cities = [{id: 5, name: 'SF'}, {id: 6, name: 'Seattle'}];
+            let totalCount = 7;
+            let paginationResult = {page: cities, totalCount: totalCount};
+            let fetchCitiesPromise = new Promise(function(resolve) {resolve(paginationResult);});
+
+            jest.spyOn(CityApi, 'fetchCities').mockReturnValue(fetchCitiesPromise);
+            let componentDOM = findDOMNode(component);
+            let nextLink = componentDOM.querySelector('#aNext');
+            ReactTestUtils.Simulate.click(nextLink);
+
+            component.forceUpdate();
+
+            setTimeout(function() {
+                let newComponentDOM = findDOMNode(component);
+
+                expect(newComponentDOM.querySelectorAll('.city-list>li').length).toEqual(2);
+
+                expect(newComponentDOM.querySelectorAll('.city-list>li')[0].innerHTML).toContain('SF');
+                expect(newComponentDOM.querySelectorAll('.city-list>li')[1].innerHTML).toContain('Seattle');
+            },0);
         });
     })
 });

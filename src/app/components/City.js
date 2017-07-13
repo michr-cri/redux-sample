@@ -28,7 +28,6 @@ class City extends React.Component {
     }
 
     render() {
-        console.log(this.props.cities);
         let pageNums = Array.apply(null, {length: Math.ceil(this.props.totalCount/this.props.pageSize) + 1}).map(Number.call, Number).slice(1)
         return (
             <div>

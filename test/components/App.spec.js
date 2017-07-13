@@ -25,8 +25,8 @@ describe('components', () => {
             let fetchSeedDataPromise = new Promise(function(resolve) {resolve(source);});
             let fetchInitialDataPromise = new Promise(function(resolve) {resolve(initialResults);});
 
-            jest.spyOn(FormApi, 'fetchSeedData').mockReturnValueOnce(fetchSeedDataPromise);
-            jest.spyOn(FormApi, 'fetchInitialData').mockReturnValueOnce(fetchInitialDataPromise);
+            jest.spyOn(FormApi, 'fetchSeedData').mockReturnValue(fetchSeedDataPromise);
+            jest.spyOn(FormApi, 'fetchInitialData').mockReturnValue(fetchInitialDataPromise);
             let store = createStore(reducer);
             app = ReactTestUtils.renderIntoDocument(
                 <Provider store={store}>
