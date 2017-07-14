@@ -9,13 +9,14 @@ export function authenticationFailed(title, message) {
 }
 
 export function login(username, password, redirectUrl) {
+    let a = redirectUrl;
     return (dispatch) => {
         LoginApi.login(username, password).then(() => {
             dispatch(authenticationSucceeded());
-            if(!redirectUrl) {
-                redirectUrl = '/#/app';
+            if(!a) {
+                a = '/#/app';
             }
-            document.location.replace(redirectUrl);
+            document.location.replace(a);
         }, (response)=>{
             if(response.status === 401) {
                 dispatch(authenticationFailed('Wrong authentication', 'You enter the wrong username and password'));

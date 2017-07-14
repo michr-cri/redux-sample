@@ -11,23 +11,22 @@ var setupAjax = function (appName) {
         cache: false
     });
 
+    let handleUnAutherized = function(status) {
+        if(window.location.hash && window.location.hash !== '#/') {
+            document.location.replace('/#?error=' + status + '&redirect-url=' + encodeURIComponent(window.location.hash));
+        }
+    };
+
     $(document).ajaxError(
         function (event, jqxhr, settings, thrownError) {
             var error = jqxhr.getResponseHeader('UMCS-auth-error');
 
             switch (jqxhr.status) {
                 case 401:
-                    //  var umcsAccessibleBy = jqxhr.getResponseHeader('UMCS-accessible-by');
-                    if (error === 'not-authenticated') {
-                        //authHelper.notAuthenticatedHandler(appName);
-                    }
-                    document.location.replace('/#?error=' + jqxhr.status + '&redirect-url=' + window.location.hash);
+                    handleUnAutherized(jqxhr.status);
                     break;
                 case 403:
-                    if (error === 'not-authorized') {
-                        //authHelper.notAuthorizedHandler();
-                    }
-                    document.location.replace('/#?error=' + jqxhr.status + '&redirect-url=' + window.location.hash);
+                    handleUnAutherized(jqxhr.status);
                     break;
                 case 404:
                     //util.redirect('FRONT_END_BASE_URL/index.html#404-page-not-found');
