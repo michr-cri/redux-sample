@@ -9,12 +9,11 @@ export function authenticationFailed(title, message) {
 }
 
 export function login(username, password, redirectUrl) {
-    let a = redirectUrl;
     return (dispatch) => {
         LoginApi.login(username, password).then(() => {
             dispatch(authenticationSucceeded());
-            if(!a) {
-                a = '/#/app';
+            if(!redirectUrl) {
+                redirectUrl = '/#/app';
             }
             document.location.replace(a);
         }, (response)=>{

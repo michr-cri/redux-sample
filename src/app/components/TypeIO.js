@@ -1,40 +1,8 @@
 import React from 'react';
 import 'jquery';
 import 'typeio';
-import FormApi from '../apis/FormApi';
 
 class TypeIO extends React.Component {
-    componentDidMount() {
-        this.$el = $(this.el);
-
-        FormApi.fetchSeedData().then(source => {
-            FormApi.fetchInitialData().then(initialResults => {
-                this.$el.typeIO(
-                    {
-                        hint: true,
-                        highlight: true,
-                        minLength: 0,
-                        name: 'states',
-                        resultsContainer:'#divResults',
-                        selectedTermRemovedCallback: this.handleSelectedTermRemoved.bind(this),
-                        initialResults: initialResults
-                    },
-                    {
-                        display:'text',
-                        source: source,
-                        templates: {
-                            suggestion: function(data) {
-                                return '<div>' + data.text + '</div>';
-                            }
-                        }
-                    }
-                ).on('typeahead:selected', this.handleSelected.bind(this));
-
-                this.props.initializeResults(initialResults);
-            });
-        });
-
-    }
 
     handleSelectedTermRemoved(removedTerm) {
         this.props.removeItem(removedTerm);

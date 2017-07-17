@@ -28,4 +28,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TypeIO);
+export default connect(mapStateToProps, mapDispatchToProps, null, { withRef: true })(TypeIO);
