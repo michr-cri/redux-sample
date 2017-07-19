@@ -1,8 +1,6 @@
 import React from 'react';
 import util from '../../util';
-import 'parsleyjs';
-import parsleyConfig from '../../parsley.config';
-
+import LoginFormContainer from '../containers/LoginFormContainer';
 import FeedbackContainer from '../../shared/containers/FeedbackContainer';
 
 class Login extends React.Component {
@@ -16,9 +14,6 @@ class Login extends React.Component {
         if(errorId === '401') {
             this.props.showFeedback('Unauthenticated User', 'You must enter correct username and password first');
         }
-        $(this.form).parsley(parsleyConfig).on('form:error', function () {
-            $(".field-error-text:not(:empty):first").parent().get(0).scrollIntoView();
-        });
     }
 
     handleLogin(event) {
@@ -37,18 +32,7 @@ class Login extends React.Component {
         return (
             <div>
                 <FeedbackContainer />
-                <form ref={el => this.form = el} id="frmLogin" onSubmit={this.handleLogin.bind(this)}>
-                    <div className="field-container">
-                        <label id="labelUsername" htmlFor="textUsername">Unique Name</label>
-                        <input id="textUsername" type="text" name="username" data-parsley-required ref={el => this.textUsername = el}/>
-                    </div>
-
-                    <div className="field-container">
-                        <label id="labelPassword" htmlFor="passwordPassword">Your level-2 password</label>
-                        <input id="passwordPassword" type="password" name="password" data-parsley-required ref={el => this.passwordPassword = el}/>
-                    </div>
-                    <button id="submitLogin" type="submit" value="SIGN IN">Log in</button>
-                </form>
+                <LoginFormContainer />
             </div>
         );
     }
